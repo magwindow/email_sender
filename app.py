@@ -13,7 +13,7 @@ def create_widgets():
     label_password_email.grid(row=1, column=0, pady=5, padx=5)
     root.entry_password_email = Entry(root, width=50, show='*')
     root.entry_password_email.grid(row=1, column=1, pady=5, padx=5)
-    root.show_hide_btn = Button(root, text='Показать', width=10)
+    root.show_hide_btn = Button(root, text='Показать', width=10, command=show_password)
     root.show_hide_btn.grid(row=1, column=2, pady=5, padx=5)
     
     label_to_email = Label(root, text='Email получателя : ', bg='darkslategray4', font=('', 15, 'bold'))
@@ -43,6 +43,23 @@ def create_widgets():
     exit_btn = Button(root, text='Выход', width=10)
     exit_btn.grid(row=7, column=0, padx=5, pady=5)
     
+
+
+def show_password():
+    """Отображает замаскированный пароль"""
+    # Настройка кнопки для отображения текста Скрыть и запуска функции hide_password() при нажатии
+    root.show_hide_btn.config(text='Скрыть', command=hide_password)
+    # Установка атрибута show в пустую строку для отображения пароля
+    root.entry_password_email.config(show='')
+
+
+def hide_password():
+    """Маскирует пароль звездочками"""
+    # Настройка кнопки для отображения текста Показать и запуска функции show_password() при нажатии
+    root.show_hide_btn.config(text='Показать', command=show_password)
+    # Установка атрибута show равным * для маскировки пароля
+    root.entry_password_email.config(show='*')
+
 
 # Создание объекта класса tk
 root = tk.Tk()
