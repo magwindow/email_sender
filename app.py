@@ -1,5 +1,7 @@
+import os
 import tkinter as tk
 from tkinter import *
+from tkinter.filedialog import askopenfilenames
 
 
 def create_widgets():
@@ -30,7 +32,7 @@ def create_widgets():
     label_attachment_email.grid(row=4, column=0, pady=5, padx=5)
     root.entry_attachment_email = Text(root, width=65, height=5)
     root.entry_attachment_email.grid(row=4, column=1, pady=5, padx=5)
-    attachment_btn = Button(root, text='Обзор', width=10)
+    attachment_btn = Button(root, text='Обзор', width=10, command=file_browse)
     attachment_btn.grid(row=4, column=2, pady=5, padx=5)
     
     label_body_email = Label(root, text='Сообщение : ', bg='darkslategray4', font=('', 15, 'bold'))
@@ -59,6 +61,20 @@ def hide_password():
     root.show_hide_btn.config(text='Показать', command=show_password)
     # Установка атрибута show равным * для маскировки пароля
     root.entry_password_email.config(show='*')
+
+
+def file_browse():
+    """Отображает диалоговое окно для выбора файлов, которые будут отправлены в качестве вложений"""
+    # Предоставляет пользователю диалоговое окно для выбора файлов
+    # функция askopenfilenames() может использоваться для выбора нескольких файлов
+    # Настройка initialdir необязательна
+    root.filename = askopenfilenames(initialdir='YOUR DIRECTORY PATH')
+    # Перебор выбранных файлов и отображение их в виджете attacment_entry
+    for files in root.filename:
+        # Извлекает только имена файлов из пути, используя метод os.path.basename()
+        filename = os.path.basename(files)
+        root.entry_attachment_email.insert('1.0', filename + '\n')
+
 
 
 # Создание объекта класса tk
