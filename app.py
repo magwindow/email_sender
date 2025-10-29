@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import *
+from tkinter import messagebox
 from tkinter.filedialog import askopenfilenames
 
 
@@ -42,7 +43,7 @@ def create_widgets():
     
     send_email_btn = Button(root, text='Отпраить email', width=13)
     send_email_btn.grid(row=7, column=2, padx=5, pady=5)
-    exit_btn = Button(root, text='Выход', width=10)
+    exit_btn = Button(root, text='Выход', width=10, command=email_exit)
     exit_btn.grid(row=7, column=0, padx=5, pady=5)
     
 
@@ -74,6 +75,15 @@ def file_browse():
         # Извлекает только имена файлов из пути, используя метод os.path.basename()
         filename = os.path.basename(files)
         root.entry_attachment_email.insert('1.0', filename + '\n')
+        
+        
+def email_exit():
+    """Выход из приложения"""
+    # Получить подтверждение от пользователя с помощью messagebox
+    msg_box = messagebox.askquestion('Выход из Email Sender', 'Вы действительно хотите выйти?')
+    if msg_box == 'yes':
+        # Закрыть окно приложения
+        root.destroy()
 
 
 
